@@ -48,7 +48,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     event winnerPicked(address indexed winner);
 
     constructor(
-        address vrfCoordinatorV2,
+        address vrfCoordinatorV2, //contract
         uint256 entranceFee,
         bytes32 gasLane,
         uint64 subscriptionId,
@@ -82,6 +82,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      * 3. The contract has ETH.
      * 4. Implicity, your subscription is funded with LINK.
      */
+
     function checkUpkeep(
         bytes memory /* checkData */
     )
