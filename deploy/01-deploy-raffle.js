@@ -20,7 +20,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
         await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, VRF_SUB_FUND_AMOUNT)
     } else {
-        vrfCoorinatorV2Address = networkConfig[chainId]["vrfCoorinatorV2"]
+        vrfCoorinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"]
         subscriptionId = networkConfig[chainId]["subscriptionId"]
     }
     const entranceFee = networkConfig[chainId]["entranceFee"]
