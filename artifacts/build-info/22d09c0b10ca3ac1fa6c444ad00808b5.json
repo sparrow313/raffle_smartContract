@@ -1,5 +1,5 @@
 {
-  "id": "8c814a229da2a10fa6ee8609bd917060",
+  "id": "22d09c0b10ca3ac1fa6c444ad00808b5",
   "_format": "hh-sol-build-info-1",
   "solcVersion": "0.8.7",
   "solcLongVersion": "0.8.7+commit.e28d00a7",
@@ -24,8 +24,8 @@
       "@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol": {
         "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface LinkTokenInterface {\n  function allowance(address owner, address spender) external view returns (uint256 remaining);\n\n  function approve(address spender, uint256 value) external returns (bool success);\n\n  function balanceOf(address owner) external view returns (uint256 balance);\n\n  function decimals() external view returns (uint8 decimalPlaces);\n\n  function decreaseApproval(address spender, uint256 addedValue) external returns (bool success);\n\n  function increaseApproval(address spender, uint256 subtractedValue) external;\n\n  function name() external view returns (string memory tokenName);\n\n  function symbol() external view returns (string memory tokenSymbol);\n\n  function totalSupply() external view returns (uint256 totalTokensIssued);\n\n  function transfer(address to, uint256 value) external returns (bool success);\n\n  function transferAndCall(\n    address to,\n    uint256 value,\n    bytes calldata data\n  ) external returns (bool success);\n\n  function transferFrom(\n    address from,\n    address to,\n    uint256 value\n  ) external returns (bool success);\n}\n"
       },
-      "contracts/test/VRFCoordinatorV2.sol": {
-        "content": "//SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.0;\r\n\r\nimport \"@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol\";\r\n"
+      "contracts/test/VRFCoordinatorV2Mock.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\nimport \"@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol\";\r\n"
       }
     },
     "settings": {
@@ -47499,9 +47499,9 @@
         },
         "id": 5
       },
-      "contracts/test/VRFCoordinatorV2.sol": {
+      "contracts/test/VRFCoordinatorV2Mock.sol": {
         "ast": {
-          "absolutePath": "contracts/test/VRFCoordinatorV2.sol",
+          "absolutePath": "contracts/test/VRFCoordinatorV2Mock.sol",
           "exportedSymbols": {
             "LinkTokenInterface": [
               171
@@ -47529,7 +47529,7 @@
                 ".0"
               ],
               "nodeType": "PragmaDirective",
-              "src": "34:23:6"
+              "src": "33:23:6"
             },
             {
               "absolutePath": "@chainlink/contracts/src/v0.8/mocks/VRFCoordinatorV2Mock.sol",
@@ -47539,12 +47539,12 @@
               "nodeType": "ImportDirective",
               "scope": 1548,
               "sourceUnit": 1131,
-              "src": "61:70:6",
+              "src": "60:70:6",
               "symbolAliases": [],
               "unitAlias": ""
             }
           ],
-          "src": "34:99:6"
+          "src": "33:99:6"
         },
         "id": 6
       }

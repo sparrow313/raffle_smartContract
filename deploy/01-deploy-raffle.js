@@ -1,26 +1,53 @@
 const { network, ethers } = require("hardhat")
-const { developmentChains, chainId, netWorkConfig } = require("../helper-hardhat-config")
+const { developmentChains, chainId, networkConfig } = require("../helper-hardhat-config")
+const { verify } = require("../utils/verify")
+
+const VRF_SUB_FUND_AMOUNT = ethers.utils.parseEther("2")
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId
 
-    let vrfCoorinatorV2Address
+    let vrfCoorinatorV2Address, subscriptionId
 
     if (developmentChains.includes(network.name)) {
         const vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
         vrfCoorinatorV2Address = vrfCoordinatorV2Mock.addresss
+        const transactionResponse = await vrfCoordinatorV2Mock.createSubscription()
+        const tranactionReceipt = await transactionResponse.wait(1)
+        subscriptionId = tranactionReceipt.events[0].args.subId
+
+        await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, VRF_SUB_FUND_AMOUNT)
     } else {
-        vrfCoorinatorV2Address = netWorkConfig[chainId]["vrfCoorinatorV2"]
+        vrfCoorinatorV2Address = networkConfig[chainId]["vrfCoorinatorV2"]
+        subscriptionId = networkConfig[chainId]["subscriptionId"]
     }
-    const entranceFee = netWorkConfig[chainId]["entranceFee"]
-    const args = [vrfCoorinatorV2Address, entranceFee]
+    const entranceFee = networkConfig[chainId]["entranceFee"]
+    const gasLane = networkConfig[chainId]["gasLane"]
+    const callbackGasLimit = networkConfig[chainId]["callbackGasLimit"]
+    const interval = networkConfig[chainId]["interval"]
+
+    const args = [
+        vrfCoorinatorV2Address,
+        entranceFee,
+        gasLane,
+        subscriptionId,
+        callbackGasLimit,
+        interval,
+    ]
+
     const raffle = await deploy("Raffle", {
         from: deployer,
-        args: agrs,
+        args: args,
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
     })
+
+    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+        log("Verifying...")
+        await verify(raffle.addresss, args)
+    }
 }
-module.exports.tags = ["MyContract"]
+
+module.exports.tags = ["all", "raffle"]

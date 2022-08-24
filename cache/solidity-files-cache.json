@@ -261,10 +261,10 @@
         "LinkTokenInterface"
       ]
     },
-    "D:\\BlockChain\\Pattrick collins\\hardhat-smartcontract-lottery\\contracts\\test\\VRFCoordinatorV2.sol": {
-      "lastModificationDate": 1661149507326,
-      "contentHash": "bf98147c5bdc35a176f9b8bc0e57de29",
-      "sourceName": "contracts/test/VRFCoordinatorV2.sol",
+    "D:\\BlockChain\\Pattrick collins\\hardhat-smartcontract-lottery\\contracts\\test\\VRFCoordinatorV2Mock.sol": {
+      "lastModificationDate": 1661324520790,
+      "contentHash": "01be131301707a08eb3eaf2456940ec9",
+      "sourceName": "contracts/test/VRFCoordinatorV2Mock.sol",
       "solcConfig": {
         "version": "0.8.7",
         "settings": {
