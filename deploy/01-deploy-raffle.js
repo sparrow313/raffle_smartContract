@@ -9,18 +9,18 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId
 
-    let vrfCoorinatorV2Address, subscriptionId
+    let vrfCoordinatorV2Address, subscriptionId
 
     if (developmentChains.includes(network.name)) {
         const vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
-        vrfCoorinatorV2Address = vrfCoordinatorV2Mock.addresss
+        vrfCoordinatorV2Address = vrfCoordinatorV2Mock.addresss
         const transactionResponse = await vrfCoordinatorV2Mock.createSubscription()
         const tranactionReceipt = await transactionResponse.wait(1)
         subscriptionId = tranactionReceipt.events[0].args.subId
 
         await vrfCoordinatorV2Mock.fundSubscription(subscriptionId, VRF_SUB_FUND_AMOUNT)
     } else {
-        vrfCoorinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"]
+        vrfCoordinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"]
         subscriptionId = networkConfig[chainId]["subscriptionId"]
     }
     const entranceFee = networkConfig[chainId]["entranceFee"]
@@ -29,7 +29,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const interval = networkConfig[chainId]["interval"]
 
     const args = [
-        vrfCoorinatorV2Address,
+        vrfCoordinatorV2Address,
         entranceFee,
         gasLane,
         subscriptionId,
